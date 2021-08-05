@@ -1,0 +1,94 @@
+Classfile /root/HelloByteCode.class                                                                 //class文件地址
+  Last modified Aug 3, 2021; size 467 bytes                                                         //最后修改时间和文件大小
+  MD5 checksum 235a16116a18d0953dcbe270cfff67db                                                     //md5校验和
+  Compiled from "HelloByteCode.java"                                                                //从HelloByteCode.java编译而来
+public class HelloByteCode                                                                          //类标识和类名
+  minor version: 0                                                                                 
+  major version: 52                                                                                 //jdk版本，52.0表示jdk8
+  flags: ACC_PUBLIC, ACC_SUPER                                                                      //类的访问标识，标识这是个public类，且有父类
+Constant pool:                                                                                      //常量池
+   #1 = Methodref          #5.#22         // java/lang/Object."<init>":()V                          //前面的#1表示常量编号，=后的Methodref表示的是一个方法，指向的是#9类的#28方法，//后直接写出了这个方法
+   #2 = Double             3000.0d                                                                 
+   #4 = Class              #23            // HelloByteCode                                          //由于double常量占2个字节，所以这里的常量编号为#4
+   #5 = Class              #24            // java/lang/Object
+   #6 = Utf8               <init>
+   #7 = Utf8               ()V
+   #8 = Utf8               Code
+   #9 = Utf8               LineNumberTable
+  #10 = Utf8               LocalVariableTable
+  #11 = Utf8               this
+  #12 = Utf8               LHelloByteCode;
+  #13 = Utf8               calSum
+  #14 = Utf8               ()D
+  #15 = Utf8               count
+  #16 = Utf8               I
+  #17 = Utf8               sum
+  #18 = Utf8               D
+  #19 = Utf8               StackMapTable
+  #20 = Utf8               SourceFile
+  #21 = Utf8               HelloByteCode.java
+  #22 = NameAndType        #6:#7          // "<init>":()V
+  #23 = Utf8               HelloByteCode
+  #24 = Utf8               java/lang/Object
+{
+  public HelloByteCode();
+    descriptor: ()V                                                                                         //返回值是V，即void
+    flags: ACC_PUBLIC                                                                                       //表示是public方法
+    Code:                                                                                                   
+      stack=1, locals=1, args_size=1                                                                        //总栈深度为1，本地变量1个，参数1个（this）
+         0: aload_0                                                                                         //非静态方法会默认把this分配到局部变量表的0号槽位
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V                       //执行方法调用，调用常量池中的#1方法
+         4: return                                                                                          //上一条的操作数其实有2个，加上操作码一共占3个字节，所以return从4开始
+      LineNumberTable:                                                                                      
+        line 4: 0                                                                                           //0号指令出现在第4行，因为是使用的父类的构造方法，所以行号为类声明所在行
+      LocalVariableTable:                                                                                   //本地变量表，这里只有一个this
+        Start  Length  Slot  Name   Signature                                                               
+            0       5     0  this   LHelloByteCode;                                                         //变量名为this，类型是HelloByteCode
+
+  public static double calSum();
+    descriptor: ()D                                                             //表示返回的是double类型
+    flags: ACC_PUBLIC, ACC_STATIC                                               //这个类是public并且是static
+    Code:                                                                       
+      stack=4, locals=3, args_size=0                                            //最大栈深度为4，本地变量3个，入参0个
+         0: dconst_0                                                            //将常量池中的double型0压栈，当前栈深度2
+         1: dstore_0                                                            //把栈顶double类型的值存入第0个本地变量，当前栈深度0
+         2: iconst_0                                                            //将常量池中的int型0压栈，当前栈深度1
+         3: istore_2                                                            //把栈顶的int类型的值存入第2个（double占2个字节，所以直接跳到2），当前栈深度0
+         4: iload_2                                                             //读取2号本地变量的int类型的值压栈，当前栈深度1
+         5: bipush        100                                                   //将100常量压栈，当前栈深度2
+         7: if_icmpge     32                                                    //比较栈顶2个数值的大小，如果结果大于等于0则跳转到32，也就是2号本地变量值大于等于100，对应代码里的count>=100，当前栈深度0
+        10: dload_0                                                             //读取0号本地变量的double类型的值压栈，也就是代码里的sum，当前栈深度2
+        11: iload_2                                                             //读取2号本地变量int类型的值压栈，也就是代码里的count，当前栈深度3
+        12: i2d                                                                 //类型转换，由int转成double，原因是代码里有int+double的四则运算
+        13: dadd                                                                //将栈顶的2个元素进行相加，也就是sum+count，并将结果压栈，当前栈深度2
+        14: dstore_0                                                            //将栈顶double类型的值存入0号本地变量，也就是对应把上面的sum+count赋值给sum，当前栈深度0
+        15: dload_0                                                             //读取0号本地变量的double类型的值压栈，还是sum，当前栈深度2
+        16: ldc2_w        #2                  // double 3000.0d                 //将2号常量池的值压栈，从常量池能看出2号是3000.0d，当前栈深度4
+        19: dcmpl                                                               //比较栈顶2个数值的大小，如果栈顶第一个(3000)小于第二个(sum)则返回1，相等返回0，大于返回-1，并压入栈顶，当前栈深度1
+        20: ifle          26                                                    //如果栈顶数值小于等于0跳转至26，也就是说3000>=sum时跳转至26，当前栈深度0
+        23: goto          32                                                    //跳转至32，跳出循环
+        26: iinc          2, 1                                                  //将2号本地变量值+1
+        29: goto          4                                                     //跳转至4，再次循环
+        32: dload_0                                                             //读取0号本地变量的double类型的值压栈，也就是代码里的sum，当前栈深度2
+        33: dreturn                                                             //将栈顶的double类型的值返回，当前栈深度0
+      LineNumberTable:                                                          //行号表
+        line 7: 0                                                               //0号指令出现在第7行，以下类似
+        line 8: 2                                                               
+        line 9: 10                                                              
+        line 10: 15                                                             
+        line 11: 23                                                             
+        line 8: 26                                                              
+        line 14: 32                                                             
+      LocalVariableTable:                                                       //本地变量表，这里有2个变量，由于是静态方法，所以this没有出现在本地变量表中
+        Start  Length  Slot  Name   Signature
+            4      28     2 count   I
+            2      32     0   sum   D
+      StackMapTable: number_of_entries = 3
+        frame_type = 253 /* append */
+          offset_delta = 4
+          locals = [ double, int ]
+        frame_type = 21 /* same */
+        frame_type = 250 /* chop */
+          offset_delta = 5
+}
+SourceFile: "HelloByteCode.java"

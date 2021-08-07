@@ -1,0 +1,50 @@
+Attaching to process ID 5869, please wait...
+Debugger attached successfully.
+Server compiler detected.
+JVM version is 25.51-b03
+ 
+using thread-local object allocation.
+Garbage-First (G1) GC with 4 thread(s)                                 //该进程使用G1GC，并开启了4个线程进行垃圾回收
+ 
+Heap Configuration:
+   MinHeapFreeRatio         = 40                                       //堆配置最小空闲堆大小为40%（默认值），当空闲大小低于这个值，将会进行堆扩容
+   MaxHeapFreeRatio         = 70                                       //最大空闲堆大小为70%（默认），当空闲大小高于这个值，将会进行堆缩容
+   MaxHeapSize              = 1006632960 (960.0MB)                     //最大堆内存为960M
+   NewSize                  = 1363144 (1.2999954223632812MB)           //新生代大小1.2M，很小
+   MaxNewSize               = 603979776 (576.0MB)                      //最大新生代大小为576M，为最大堆内存大小的60%（默认）
+   OldSize                  = 5452592 (5.1999969482421875MB)           //老年代大小为5.1M
+   NewRatio                 = 2                                        //新生代比例为2，也就是说新生代：老年代=1:2，当然这只是配置，实际情况不以这个为准
+   SurvivorRatio            = 8                                        //SurvivorRatio=8表示survivor:eden=1:8，当然实际也不是以这个为准
+   MetaspaceSize            = 21807104 (20.796875MB)                   //Meta空间大小为20.7M
+   CompressedClassSpaceSize = 1073741824 (1024.0MB)                    //类空间大小为1G
+   MaxMetaspaceSize         = 17592186044415 MB                        //最大meta空间,是很大的一串数字
+   G1HeapRegionSize         = 1048576 (1.0MB)                          //比较重要的一个配置项，表示G1算法中单个region的大小，这里为默认的1M
+ 
+Heap Usage:
+G1 Heap:
+   regions  = 960                                          //G1堆总共用了960个region，因为堆大小为960M，每个region 1M，所以960个region
+   capacity = 1006632960 (960.0MB)                         //分配了960M内存
+   used     = 396203520 (377.84912109375MB)                //使用了377M
+   free     = 610429440 (582.15087890625MB)                //剩余582M
+   39.359283447265625% used                                //堆使用率
+G1 Young Generation:
+Eden Space:
+   regions  = 195                                          //eden区使用了195个region
+   capacity = 377487360 (360.0MB)                          //分配了360M空间
+   used     = 204472320 (195.0MB)                          //使用了195M
+   free     = 173015040 (165.0MB)                          //剩余165M
+   54.166666666666664% used                                //使用率为54.1%
+Survivor Space:
+   regions  = 6                                            //survivor区使用了6个region
+   capacity = 6291456 (6.0MB)                              //共分配了6M内存
+   used     = 6291456 (6.0MB)                              //使用了6M
+   free     = 0 (0.0MB)                                    //剩余0M
+   100.0% used                                             //使用率为100%
+G1 Old Generation:
+   regions  = 181                                          //old区使用了181个region
+   capacity = 250609664 (239.0MB)                          //分配了239M内存
+   used     = 185439744 (176.84912109375MB)                //使用了176M
+   free     = 65169920 (62.15087890625MB)                  //剩余62M
+   73.99544815638075% used                                 //使用率为73.9%
+ 
+31481 interned Strings occupying 2899624 bytes.
